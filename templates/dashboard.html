@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CHIMERA Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="cyber-bg">
+
+<div class="container">
+
+    <h1 class="logo">CHIMERA</h1>
+    <p style="text-align:center;">A Hashed Password Security & Analysis Platform</p>
+
+    <!-- ================= CARDS SECTION ================= -->
+
+    <div class="card-container">
+
+        <!-- HASH GENERATOR -->
+        <div class="card">
+            <h3>Hash Generator</h3>
+
+            <form method="POST">
+                <input type="text" name="password" placeholder="Enter Password" required><br><br>
+
+                <select name="algorithm">
+                    <option value="MD5">MD5</option>
+                    <option value="SHA1">SHA1</option>
+                    <option value="SHA256">SHA256</option>
+                    <option value="SHA512">SHA512</option>
+                </select><br><br>
+
+                <button type="submit" name="generate_hash">Generate</button>
+            </form>
+
+            {% if result.generated_hash %}
+                <p style="margin-top:15px; word-wrap: break-word;">
+                    <strong>Generated Hash:</strong><br>
+                    {{ result.generated_hash }}
+                </p>
+            {% endif %}
+        </div>
+
+        <!-- PASSWORD STRENGTH ANALYZER -->
+        <div class="card">
+            <h3>Password Strength Analyzer</h3>
+
+            <form method="POST">
+                <input type="text" name="strength_password" placeholder="Enter Password" required><br><br>
+                <button type="submit" name="analyze_strength">Analyze</button>
+            </form>
+
+            {% if result.strength %}
+                <p style="margin-top:15px;">
+                    <strong>Strength:</strong> {{ result.strength }}
+                </p>
+            {% endif %}
+        </div>
+
+        <!-- SECURE PASSWORD GENERATOR -->
+        <div class="card">
+            <h3>Secure Password Generator</h3>
+
+            <form method="POST">
+                <button type="submit" name="generate_secure">Generate Secure Password</button>
+            </form>
+
+            {% if result.secure_password %}
+                <p style="margin-top:15px;">
+                    <strong>Generated Password:</strong><br>
+                    {{ result.secure_password }}
+                </p>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <!-- ================= HASH CRACKER SECTION ================= -->
+
+    <div class="big-card">
+
+        <h2>Hash Cracker</h2>
+
+        <form method="POST">
+            <input type="text" name="hash_value" placeholder="Enter Hash to Crack" required style="width:60%; padding:10px;"><br><br>
+            <button type="submit" name="crack_hash">Crack Hash</button>
+        </form>
+
+        {% if result.hash_type %}
+            <hr style="margin:20px; border-color:#00ffff;">
+            <p><strong>Detected Type:</strong> {{ result.hash_type }}</p>
+            <p><strong>Attempts:</strong> {{ result.attempts }}</p>
+            <p><strong>Time Taken:</strong> {{ result.time_taken }} seconds</p>
+
+            {% if result.cracked_password %}
+                <p style="color:lime; font-size:18px;">
+                    ✅ Password Found: {{ result.cracked_password }}
+                </p>
+            {% else %}
+                <p style="color:red; font-size:18px;">
+                    ❌ Password Not Found in Dictionary
+                </p>
+            {% endif %}
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

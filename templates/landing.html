@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CHIMERA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="cyber-bg">
+
+    <div class="center-box">
+        <h1 class="logo">CHIMERA</h1>
+        <p class="subtitle">A Hashed Password Security & Analysis Platform</p>
+
+        <div class="disclaimer">
+            <h3>Ethical Disclaimer</h3>
+            <p>
+                CHIMERA is developed for educational and ethical security research purposes only.
+                Any misuse for illegal password cracking is strictly prohibited.
+            </p>
+        </div>
+
+        <a href="{{ url_for('dashboard') }}" class="enter-btn">
+            I Agree & Enter
+        </a>
+    </div>
+
+</body>
+</html>

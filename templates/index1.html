@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hash Cracking Demo</title>
+</head>
+<body>
+    <h1>Hash Identification & Dictionary Crack Demo</h1>
+
+    <form method="POST">
+        <input type="text" name="hash_value" placeholder="Enter hash here" required value="{{ hash_value }}">
+        <button type="submit">Detect Type</button>
+        <button type="submit" name="crack" value="1">Crack Hash</button>
+    </form>
+
+    {% if detected_types %}
+        <p><strong>Detected type(s):</strong> {{ detected_types }}</p>
+    {% endif %}
+
+    {% if cracked_password %}
+        <p><strong>Cracked password:</strong> {{ cracked_password }}</p>
+    {% elif cracked_password is none and detected_types and request.form.get('crack') %}
+        <p>Password not found in dictionary.</p>
+    {% endif %}
+
+    {% if error %}
+        <p style="color:red;">Error: {{ error }}</p>
+    {% endif %}
+</body>
+</html>
